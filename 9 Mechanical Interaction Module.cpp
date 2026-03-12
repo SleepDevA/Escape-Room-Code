@@ -16,7 +16,9 @@ void setup() {
   pinMode(clk, OUTPUT);
   pinMode(dt, INPUT_PULLUP);
   pinMode(buzzer, OUTPUT);
+  pinMode(relay, OUTPUT);
   digitalWrite(clk, LOW);
+  digitalWrite(relay, LOW);
   Serial.begin(9600);
 }
 

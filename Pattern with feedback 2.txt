@@ -1,0 +1,80 @@
+int led1 = 12;
+int led2 = 11;
+int led3 = 10;
+int led4 = 9;
+int ledbl = 8;
+int ledr = 3;
+int b1 = 7;
+int b2 = 6;
+int b3 = 5;
+int b4 = 4;
+int buz = A0;
+bool On = 0;
+int rot = A1;
+int rotvL = 0;
+int rotvH = 0;
+int tim = 0;
+int clock = 0;
+
+void setup() {
+pinMode( led1, OUTPUT);
+pinMode( led2, OUTPUT);
+pinMode( led3, OUTPUT);
+pinMode( led4, OUTPUT);
+pinMode( ledbl, OUTPUT);
+pinMode( ledr, OUTPUT);
+pinMode( b1, INPUT);
+pinMode( b2, INPUT);
+pinMode( b3, INPUT);
+pinMode( b4, INPUT);
+pinMode( buz, OUTPUT);
+pinMode( rot, INPUT);
+Serial.begin(9600);
+
+}
+
+void loop() {
+Serial.println("write");
+On = 0;
+while (digitalRead(b1) == LOW || digitalRead(b2)  == LOW || digitalRead(b3)  == LOW || digitalRead(b4)  == LOW ){
+delay(100);
+Serial.println("write");
+}
+digitalWrite(ledbl, HIGH);
+delay(1000);
+timing();
+tim = 1;
+
+
+if(tim == 1){
+ timing();
+}
+
+}
+void timing(){
+
+digitalWrite(led1, HIGH);
+digitalWrite(led2, LOW);
+digitalWrite(led3, LOW);
+digitalWrite(led4, LOW);
+digitalWrite(ledbl, LOW);
+digitalWrite(ledr, LOW);
+analogWrite(buz, 50);
+rotvL = 500;
+rotvH = 1023;
+while (ledr == LOW && clock == 100){
+if (digitalRead(b2) == HIGH || digitalRead(b3) == HIGH || digitalRead(b4) == HIGH || digitalRead(b1) == HIGH && digitalRead(rot <= rotvL && rot >= rotvH)){
+digitalWrite(ledr, HIGH);
+Serial.println("looose");
+}
+if (digitalRead(b1) == HIGH && digitalRead(rot >= rotvL && rot <= rotvH)){
+digitalWrite(ledbl, HIGH);
+int win = win+1;
+Serial.println("win");
+}
+delay (100);
+clock = clock+1;
+}
+analogWrite(buz,100);
+Serial.println("lose");
+}
